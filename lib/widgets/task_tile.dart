@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:todoey_flutter/models/task.dart';
 
-class TodoListItem extends StatelessWidget {
-  //const TodoListItem({Key? key}) : super(key: key);
-  const TodoListItem({required this.itemText});
+class TaskTile extends StatelessWidget {
+  TaskTile({required this.task, required this.checkboxCallback});
 
-  final itemText;
+  final Task task;
+  final Function(bool?) checkboxCallback;
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      title: Text(itemText),
+      title: Text(
+        task.name,
+        style: TextStyle(
+            decoration: task.isDone ? TextDecoration.lineThrough : null),
+      ),
       trailing: Checkbox(
-        value: false,
-        onChanged: (newValue) {},
+        activeColor: Colors.lightBlueAccent,
+        value: task.isDone,
+        onChanged: checkboxCallback,
       ),
     );
   }
