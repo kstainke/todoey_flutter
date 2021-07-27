@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter/models/task.dart';
+import 'package:todoey_flutter/models/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
-  const AddTaskScreen({Key? key}) : super(key: key);
+  final TextEditingController nameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -28,6 +31,7 @@ class AddTaskScreen extends StatelessWidget {
               ),
             ),
             TextField(
+              controller: nameController,
               autofocus: true,
               textAlign: TextAlign.center,
             ),
@@ -35,7 +39,11 @@ class AddTaskScreen extends StatelessWidget {
               child: Text('Add'),
               color: Colors.lightBlueAccent,
               textColor: Colors.white,
-              onPressed: () {},
+              onPressed: () {
+                Provider.of<TaskData>(context, listen: false)
+                    .addTask(Task(name: nameController.text));
+                Navigator.pop(context);
+              },
             )
           ],
         ),
